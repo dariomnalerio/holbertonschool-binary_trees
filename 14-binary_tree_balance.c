@@ -5,23 +5,35 @@
  * @tree: The tree to calculate the balance factor of.
  * Return: Balance factor of the tree.
  */
+
 int binary_tree_balance(const binary_tree_t *tree)
 {
 	if (!tree)
 		return (0);
-	if (tree->parent == NULL)
-		return (binary_tree_balance(tree->right) + binary_tree_balance(tree->left));
+	return (height_tree(tree->left) - height_tree(tree->right));
+}
+
+/**
+ * height_tree - Calculates the height of a tree.
+ * @tree: The tree.
+ * Return: The height of the tree.
+ */
+
+int height_tree(const binary_tree_t *tree)
+{
+	if (!tree)
+		return (0);
 	if (tree->left && tree->right)
 	{
-		if (-binary_tree_balance(tree->right) > binary_tree_balance(tree->left))
-			return (binary_tree_balance(tree->right) - 1);
+		if (height_tree(tree->right) > height_tree(tree->left))
+			return (height_tree(tree->right) + 1);
 		else
-			return (binary_tree_balance(tree->left) + 1);
+			return (height_tree(tree->left) + 1);
 	}
 	else if (tree->left)
-		return (binary_tree_balance(tree->left) + 1);
+		return (height_tree(tree->left) + 1);
 	else if (tree->right)
-		return (binary_tree_balance(tree->right) - 1);
+		return (height_tree(tree->right) + 1);
 	else
-		return (0);
+		return (1);
 }
