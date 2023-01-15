@@ -13,7 +13,7 @@ int binary_tree_balance(const binary_tree_t *tree)
 		return (binary_tree_balance(tree->right) + binary_tree_balance(tree->left));
 	if (tree->left && tree->right)
 	{
-		if (binary_tree_balance(tree->right) > binary_tree_balance(tree->left))
+		if (-binary_tree_balance(tree->right) > binary_tree_balance(tree->left))
 			return (binary_tree_balance(tree->right) - 1);
 		else
 			return (binary_tree_balance(tree->left) + 1);
